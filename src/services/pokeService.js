@@ -2,8 +2,9 @@
  * PokeService module to interact with the PokeAPI.
  */
 
-// TODO: add env variable with api url
-const POKE_API_URL = '';
+const POKE_API_URL = import.meta.env.VITE_POKE_API_URL;
+const useMock = import.meta.env.VITE_USE_MOCK === 'true'
+
 
 /**
  * Fetch Pokémon data by name.
@@ -12,19 +13,57 @@ const POKE_API_URL = '';
  * @returns {Promise<Object>} - A promise that resolves to the Pokémon data.
  * @throws {Error} - Throws an error if the fetch fails or if the Pokémon is not found.
  */
-export const fetchPokemonByName = async (name) => {
-  try {
-    const response = await fetch(`${POKE_API_URL}/pokemon/${name}`);
+export const getPokemonByName = async (name = 'ditto') => {
 
-    // Check if the response is okay (status code in the range 200-299)
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    const apiUrl = !useMock
+    ? `${POKE_API_URL}/pokemon/${name}`
+    : '/mock/pokemon.json'
+
+    try {
+
+        const response = await fetch(apiUrl)
+
+        if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching Pokémon:', error);
+        throw error;
     }
+};
 
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching Pokémon:', error);
-    throw error; // Rethrow the error for handling in the calling function
-  }
+/**
+ * Fetch a list of Pokémon.
+ *
+ * @param {number} limit - The maximum number of Pokémon to fetch. default: 20
+ * @param {number} offset - The offset for the pagination.
+ * @returns {Promise<Object>} - A promise that resolves to the Pokémon list.
+ * @throws {Error} - Throws an error if the fetch fails.
+ */
+export const getPokemonList = async (limit, offset) => {
+
+    const apiUrl = !useMock
+    ? `${POKE_API_URL}/pokemon`
+    : '/mock/pokemon.json'
+
+    const params = new URLSearchParams();
+    params.append('limit', limit);
+    params.append('offset', offset);
+
+    try {
+        const response = await fetch(`${apiUrl}?${params}`);
+
+        if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching Pokémon list:', error);
+        throw error;
+    }
 };
