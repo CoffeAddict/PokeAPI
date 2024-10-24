@@ -1,8 +1,11 @@
 <template>
     <div class="py-[35px] px-[30px] max-w-[630px] mx-auto w-full" v-if="pokeStore.isLoading === false">
-        <!-- Search bar -->
         <SearchBar/>
         <ErrorMessage v-if="pokeStore.loadError === true"/>
+        <!-- TODO: create pokemon list component -->
+        {{ pokeStore.pokemonList }}
+        <!-- TODO: create a pokemon preview modal with a share button -->
+        <!-- TODO: bottom bar with bookmarks -->
     </div>
 </template>
 

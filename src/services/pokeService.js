@@ -47,7 +47,7 @@ export const getPokemonList = async (limit, offset) => {
 
     const apiUrl = !useMock
     ? `${POKE_API_URL}/pokemon`
-    : '/mock/pokemon.json'
+    : '/mock/pokemonList.json'
 
     const params = new URLSearchParams();
     params.append('limit', limit);

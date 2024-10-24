@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { getPokemonByName, getPokemonList } from '../services/pokeService'
+import { formatPokemonData, formatPokemonListData } from '../utils/pokemonFormatter'
 
 export const usePokeStore = defineStore('pokeStore', () => {
     const isLoading = ref(false)
@@ -8,6 +9,7 @@ export const usePokeStore = defineStore('pokeStore', () => {
 
     const pokemonList = ref([])
     const pokemonBookmarks = ref([])
+    // TODO: create bookmark functionality
 
     function setLoading (newValue) {
         isLoading.value = newValue
@@ -17,19 +19,17 @@ export const usePokeStore = defineStore('pokeStore', () => {
         loadError.value = newValue
     }
 
-    function setData (data) {
-        // pokemonList.value = data
-        // TODO: parse data before saving it
-        console.log(data);
+    function setPokemonList (data) {
+        const formattedData = formatPokemonListData(data)
+        pokemonList.value = formattedData
     }
 
     const loadFriends = async (endpoint) => {
         setLoading(true)
         try {
             const result = await getPokemonList(endpoint)
+            setPokemonList(result)
             setLoading(false)
-            setLoadError(true)
-            // setData(result)
         } catch (error) {
             console.error('Failed to fetch Pokémon data:', error)
             setLoadError(true)
