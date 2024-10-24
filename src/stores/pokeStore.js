@@ -1,22 +1,42 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { getPokemonByName, getPokemonList } from '../services/pokeService'
 
 export const usePokeStore = defineStore('pokeStore', () => {
     const isLoading = ref(false)
+    const loadError = ref(false)
 
-    const count = ref(0)
+    const pokemonList = ref([])
+    const pokemonBookmarks = ref([])
 
-    function increment () {
-        count.value++
+    function setLoading (newValue) {
+        isLoading.value = newValue
     }
 
-    function startLoading () {
-        isLoading.value = true
+    function setLoadError (newValue) {
+        loadError.value = newValue
     }
 
-    function stopLoading () {
-        isLoading.value = false
+    function setData (data) {
+        // pokemonList.value = data
+        // TODO: parse data before saving it
+        console.log(data);
     }
 
-    return { isLoading, count, increment, startLoading, stopLoading }
+    const loadFriends = async (endpoint) => {
+        setLoading(true)
+        try {
+            const result = await getPokemonList(endpoint)
+            setLoading(false)
+            setLoadError(true)
+            // setData(result)
+        } catch (error) {
+            console.error('Failed to fetch Pokémon data:', error)
+            setLoadError(true)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return { isLoading, loadError, setLoading, loadFriends, setLoadError, pokemonList, pokemonBookmarks }
 })

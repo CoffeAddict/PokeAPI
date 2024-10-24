@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-poke-white h-full">
     <WelcomeMessage v-if="currentScreen === 'welcome'" @initApp="handleInitApp"/>
     <LoadingSpinner v-if="pokeStore.isLoading === true" />
     <PokemonList v-if="currentScreen === 'pokemon'" />
@@ -22,25 +22,14 @@ export default {
   },
   setup() {
     const pokeStore = usePokeStore()
-
     const currentScreen = ref('welcome')
 
-    const { increment } = pokeStore
-
-    // getPokemonByName().then(data => {
-    //   console.log(data)
-    // })
-
-    // getPokemonList().then(data => {
-    //   console.log(data)
-    // })
-
     const handleInitApp = () => {
+      pokeStore.setLoading(true)
       currentScreen.value = 'pokemon'
-      pokeStore.startLoading()
     }
 
-    return { increment, pokeStore, handleInitApp, currentScreen }
+    return { pokeStore, handleInitApp, currentScreen }
   }
 }
 </script>
