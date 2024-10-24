@@ -2,9 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const usePokeStore = defineStore('pokeStore', () => {
-    // ref()s become state properties
-    // computed()s become getters
-    // function()s become actions
+    const isLoading = ref(false)
 
     const count = ref(0)
 
@@ -12,5 +10,13 @@ export const usePokeStore = defineStore('pokeStore', () => {
         count.value++
     }
 
-    return { increment }
+    function startLoading () {
+        isLoading.value = true
+    }
+
+    function stopLoading () {
+        isLoading.value = false
+    }
+
+    return { isLoading, count, increment, startLoading, stopLoading }
 })
