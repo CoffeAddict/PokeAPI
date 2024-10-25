@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center items-center w-screen h-screen">
+    <div class="flex justify-center items-center w-screen h-screen absolute left-0 top-0">
         <svg class="animate-spin loading-spinner" width="106" height="106" viewBox="0 0 106 106" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="53" cy="53" r="51" fill="white" stroke="#333333" stroke-width="4"/>
         <mask id="mask0_12_50" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="106" height="53">

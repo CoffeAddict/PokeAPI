@@ -57,7 +57,10 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
     transform: translate(47px, 67px);
+}
+.pikachu {
+    position: relative;
+    z-index: 1;
 }
 </style>

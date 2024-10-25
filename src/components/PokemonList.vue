@@ -9,13 +9,12 @@
             <PokeCard
                 v-for="pokemon in pokemonList"
                 :key="pokemon.id"
-                :name="pokemon.name"
-                :is-bookmarked="pokemon.isBookmarked"/>
+                :name="pokemon.name"/>
          </div>
+         <PokeModal v-if="pokeStore.showModal === true"/>
         <NavBar
             @newMenu="handleNewMenu"
             v-if="pokeStore.loadError === false"/>
-        <!-- TODO: create a pokemon preview modal with a share button -->
     </div>
 </template>
 
@@ -27,6 +26,7 @@ import PokeIcons from './PokeIcons.vue'
 import SearchBar from './SearchBar.vue'
 import NavBar from './NavBar.vue'
 import ErrorMessage from './ErrorMessage.vue'
+import PokeModal from './PokeModal.vue'
 
 export default {
     name: 'PokemonList',
@@ -36,6 +36,7 @@ export default {
         ErrorMessage,
         SearchBar,
         NavBar,
+        PokeModal
     },
     setup() {
         const pokeStore = usePokeStore()

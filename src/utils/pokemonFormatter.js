@@ -47,3 +47,18 @@ export const formatPokemonSearchData = (data) => {
         ]
     }
 }
+
+/**
+ * Formats Pokémon details data from the API response.
+ * @param {Array} data - The raw Pokémon data from the API.
+ * @returns {Array} The formatted Pokémon details data.
+ */
+export const formatPokemonDetailsData = (data) => {
+    return {
+        name: data.name,
+        height: data.height,
+        weight: data.weight,
+        types: data.types.map(type => type.type.name),
+        image: data.sprites.other['official-artwork'].front_default,
+    }
+}

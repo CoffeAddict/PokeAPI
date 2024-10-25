@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-poke-white h-full">
+  <div class="bg-poke-white-100 h-full">
     <WelcomeMessage v-if="currentScreen === 'welcome'" @initApp="handleInitApp"/>
-    <LoadingSpinner v-if="pokeStore.loading === true" />
+    <LoadingSpinner v-show="pokeStore.loading === true" />
     <PokemonList v-if="currentScreen === 'pokemon'" />
   </div>
 </template>
