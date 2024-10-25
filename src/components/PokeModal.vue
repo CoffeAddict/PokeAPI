@@ -2,7 +2,7 @@
     <div class="absolute left-0 top-0 w-full h-full bg-black bg-opacity-50 flex flex-col justify-center items-center z-20 px-[30px]">
         <div
             class="relative bg-no-repeat bg-cover bg-center w-full py-20 h-fit flex justify-center items-center max-w-[570px] rounded-t-[5px]"
-            :style="{ backgroundImage: `url(${background})` }">
+            :style="{ backgroundImage: `url(/pokemon-background.png)` }">
             <img v-if="pokemonDetails" width="180" height="180" :src="pokemonDetails.image" alt="pokemon-image">
             <button @click="handleClose" class="absolute right-[15px] top-[15px]">
                 <PokeIcons :icon="'close'"/>
@@ -37,7 +37,6 @@
 import { ref, computed } from 'vue'
 import { usePokeStore } from '../stores/pokeStore'
 import PokeBookmark from './PokeBookmark.vue'
-import pokemonBackground from '../assets/images/pokemon-background.png'
 export default {
     name: 'PokeModal',
     components: {
@@ -47,8 +46,6 @@ export default {
         const pokeStore = usePokeStore()
 
         const handleClose = () => pokeStore.setShowModal(false)
-
-        const background = ref(pokemonBackground)
 
         const copyDetails = () => navigator.clipboard.writeText(`${pokeStore.pokemonDetails.name} - ${pokemonTypes.value}`)
 
@@ -60,7 +57,7 @@ export default {
             : null
         })
 
-        return { handleClose, background, pokemonDetails, pokemonTypes, copyDetails }
+        return { handleClose, pokemonDetails, pokemonTypes, copyDetails }
     },
 }
 </script>
