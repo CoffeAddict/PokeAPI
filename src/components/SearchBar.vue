@@ -12,7 +12,6 @@
 
 <script>
 import { ref } from 'vue'
-import { debounce } from 'lodash'
 import { usePokeStore } from '../stores/pokeStore'
 
 export default {
@@ -21,12 +20,12 @@ export default {
         const pokeStore = usePokeStore()
         const searchQuery = ref('')
 
-        // Wait for 300ms before sending the request
-        const handleInput = debounce((value) => {
-            value = value.trim()
+        // Wait for 1s before sending the request
+        const handleInput = (value) => {
+            value = value.trim().toLowerCase()
             searchQuery.value = value
-            if (value) pokeStore.searchFriend(value)
-        }, 1000)
+            pokeStore.setSearchQuery(value)
+        }
 
     return { handleInput, pokeStore, searchQuery }
     },

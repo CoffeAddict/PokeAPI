@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { usePokeStore } from '../stores/pokeStore'
 import PokeBookmark from './PokeBookmark.vue'
 export default {

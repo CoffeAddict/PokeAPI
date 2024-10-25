@@ -44,13 +44,13 @@ export const getPokemonByName = async (name = 'ditto') => {
  * @returns {Promise<Object>} - A promise that resolves to the Pokémon list.
  * @throws {Error} - Throws an error if the fetch fails.
  */
-export const getPokemonList = async (offset, limit) => {
+export const getPokemonList = async (offset, name, limit = 10000, ) => {
 
     const apiUrl = !useMock
     ? `${POKE_API_URL}/pokemon`
     : '/mock/pokemonList.json'
 
-    const params = defineQueryParams({offset, limit})
+    const params = defineQueryParams({offset, name, limit})
 
     try {
         const response = await fetch(`${apiUrl}?${params}`);

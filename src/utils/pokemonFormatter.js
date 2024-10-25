@@ -31,24 +31,6 @@ export const formatPokemonListData = (data) => {
 }
 
 /**
- * Formats Pokémon search like search results
- * @param {Array} data - The raw Pokémon data from the API.
- * @returns {Array} The formatted Pokémon Listdata.
- */
-export const formatPokemonSearchData = (data) => {
-    return {
-        count: 1,
-        next: false,
-        results: [
-            {
-                name: data.name,
-                isBookmarked: false
-            },
-        ]
-    }
-}
-
-/**
  * Formats Pokémon details data from the API response.
  * @param {Array} data - The raw Pokémon data from the API.
  * @returns {Array} The formatted Pokémon details data.

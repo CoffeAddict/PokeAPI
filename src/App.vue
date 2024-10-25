@@ -2,7 +2,7 @@
   <div class="bg-poke-white-100 h-svh">
     <WelcomeMessage v-if="currentScreen === 'welcome'" @initApp="handleInitApp"/>
     <LoadingSpinner v-show="pokeStore.loading === true" />
-    <PokemonList v-if="currentScreen === 'pokemon'" />
+    <PokemonList v-if="currentScreen === 'pokemon'" @resetApp="handleResetApp"/>
   </div>
 </template>
 
@@ -28,7 +28,12 @@ export default {
       currentScreen.value = 'pokemon'
     }
 
-    return { pokeStore, handleInitApp, currentScreen }
+    const handleResetApp = () => {
+      pokeStore.setLoading(false)
+      currentScreen.value = 'welcome'
+    }
+
+    return { pokeStore, handleInitApp, handleResetApp, currentScreen }
   }
 }
 </script>

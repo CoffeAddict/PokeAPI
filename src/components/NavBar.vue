@@ -30,13 +30,11 @@
 <script>
 import { usePokeStore } from '../stores/pokeStore'
 export default {
-    setup(props, { emit }) {
+    setup() {
         const pokeStore = usePokeStore()
 
         const setMenu = (newValue) => {
             pokeStore.setMenu(newValue)
-
-            emit('newMenu', newValue)
         }
 
         return { pokeStore, setMenu }

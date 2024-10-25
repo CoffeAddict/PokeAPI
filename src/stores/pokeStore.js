@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { getPokemonByName, getPokemonList } from '../services/pokeService'
-import { formatPokemonSearchData, formatPokemonListData, formatPokemonDetailsData } from '../utils/pokemonFormatter'
+import { formatPokemonListData, formatPokemonDetailsData } from '../utils/pokemonFormatter'
 
 export const usePokeStore = defineStore('pokeStore', () => {
     const loading = ref(false)
     const loadError = ref(false)
-    const nextPageAvailable = ref(false)
     const currentMenu = ref('all') // all | bookmarks
+    const searchQuery = ref('')
 
     const pokemonListData = ref([])
     const pokemonListBookmarks = ref([])
@@ -26,15 +26,7 @@ export const usePokeStore = defineStore('pokeStore', () => {
     // Format request response and attach to pokemonListData
     function setPokemonList (data) {
         const formattedData = formatPokemonListData(data)
-        pokemonListData.value = [ ...pokemonListData.value, ...formattedData.results ]
-        nextPageAvailable.value = formattedData.next
-    }
-
-    // Format search request response and attach to pokemonListData
-    function setPokemonListSearchResult (data) {
-        const formattedData = formatPokemonSearchData(data)
         pokemonListData.value = formattedData.results
-        nextPageAvailable.value = formattedData.next
     }
 
     // Format pokemon details request response and update pokemonDetails
@@ -47,45 +39,21 @@ export const usePokeStore = defineStore('pokeStore', () => {
         showModal.value = newValue
     }
 
-    function clearPokemonList () {
-        pokemonListData.value = []
-    }
-
-    function resetSearchResults () {
-        pokemonListData.value = []
-        loadError.value = false
-        loading.value = false
-        loadFriends()
-    }
-
     // Set current menu only if it's a valid menu
     function setMenu (newValue) {
         if (['all', 'bookmarks'].includes(newValue)) currentMenu.value = newValue
     }
 
-    // Load pokemons from the API
-    const loadFriends = async () => {
-        setLoading(true)
-        try {
-            const result = await getPokemonList(pokemonListData.value.length)
-            setPokemonList(result)
-            setLoading(false)
-        } catch (error) {
-            console.error('Failed to fetch Pokémon data:', error)
-            setLoadError(true)
-        } finally {
-            setLoading(false)
-        }
+    const setSearchQuery = (query) => {
+        searchQuery.value = query
     }
 
-    // Search pokemon by name from the API
-    const searchFriend = async (query) => {
+    // Load pokemons from the API
+    const loadFriends = async (search) => {
         setLoading(true)
-
         try {
-            const result = await getPokemonByName(query)
-            setPokemonListSearchResult(result)
-            setLoadError(false)
+            const result = await getPokemonList(pokemonListData.value.length, search)
+            setPokemonList(result)
             setLoading(false)
         } catch (error) {
             console.error('Failed to fetch Pokémon data:', error)
@@ -124,21 +92,19 @@ export const usePokeStore = defineStore('pokeStore', () => {
     return {
         loading,
         loadError,
+        searchQuery,
         pokemonListData,
         pokemonListBookmarks,
         pokemonDetails,
-        nextPageAvailable,
         currentMenu,
         showModal,
         setLoading,
         setLoadError,
         setMenu,
         setShowModal,
+        setSearchQuery,
         loadFriends,
         loadFriendByName,
-        searchFriend,
-        resetSearchResults,
-        clearPokemonList,
         toggleBookmark,
     }
 })
