@@ -2,6 +2,8 @@
  * PokeService module to interact with the PokeAPI.
  */
 
+import { defineQueryParams } from "../utils/defineQueryParams";
+
 const POKE_API_URL = import.meta.env.VITE_POKE_API_URL;
 const useMock = import.meta.env.VITE_USE_MOCK === 'true'
 
@@ -20,11 +22,10 @@ export const getPokemonByName = async (name = 'ditto') => {
     : '/mock/pokemon.json'
 
     try {
-
         const response = await fetch(apiUrl)
 
         if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
 
         const data = await response.json();
@@ -43,21 +44,19 @@ export const getPokemonByName = async (name = 'ditto') => {
  * @returns {Promise<Object>} - A promise that resolves to the Pokémon list.
  * @throws {Error} - Throws an error if the fetch fails.
  */
-export const getPokemonList = async (limit, offset) => {
+export const getPokemonList = async (offset, limit) => {
 
     const apiUrl = !useMock
     ? `${POKE_API_URL}/pokemon`
     : '/mock/pokemonList.json'
 
-    const params = new URLSearchParams();
-    params.append('limit', limit);
-    params.append('offset', offset);
+    const params = defineQueryParams({offset, limit})
 
     try {
         const response = await fetch(`${apiUrl}?${params}`);
 
         if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
 
         const data = await response.json();

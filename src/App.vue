@@ -1,7 +1,7 @@
 <template>
   <div class="bg-poke-white h-full">
     <WelcomeMessage v-if="currentScreen === 'welcome'" @initApp="handleInitApp"/>
-    <LoadingSpinner v-if="pokeStore.isLoading === true" />
+    <LoadingSpinner v-if="pokeStore.loading === true" />
     <PokemonList v-if="currentScreen === 'pokemon'" />
   </div>
 </template>
@@ -12,7 +12,6 @@ import LoadingSpinner from './components/LoadingSpinner.vue'
 import WelcomeMessage from './components/WelcomeMessage.vue'
 import PokemonList from './components/PokemonList.vue'
 import { usePokeStore } from './stores/pokeStore'
-// import { getPokemonByName, getPokemonList } from './services/pokeService'
 
 export default {
   components: {

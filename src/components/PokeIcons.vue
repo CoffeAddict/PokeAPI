@@ -26,7 +26,5 @@ export default {
             default: 'fill-white',
         },
     },
-    setup(props) {
-    },
 }
 </script>

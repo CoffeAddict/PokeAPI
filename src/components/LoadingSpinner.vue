@@ -20,7 +20,5 @@
 <script>
 export default {
     name: 'LoadingSpinner',
-    setup() {
-    },
 }
 </script>
