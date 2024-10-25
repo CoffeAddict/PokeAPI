@@ -1,5 +1,5 @@
 <template>
-    <div class="py-[70px]">
+    <div class="pt-[70px]">
         <WelcomeImage class="mx-auto w-fit mb-[60px]"/>
         <div class="p-[30px] flex flex-col">
             <h1 class="text-center text-[26px] font-bold mb-[30px]">Welcome to Pokédex</h1>
