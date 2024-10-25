@@ -2,7 +2,7 @@
     <div class="min-h-[60px] py-2 pr-2.5 pl-5 mb-2.5 bg-white rounded-[5px] flex justify-between items-center fill-poke-gray-100 hover:cursor-pointer hover:bg-neutral-200 transition-all duration-200">
         <h3
             @click="loadPokemonDetails"
-            class="text-[22px] leading-[26.4px] text-poke-gray-400 capitalize">{{ name }}</h3>
+            class="w-full h-full text-[22px] leading-[44px] text-poke-gray-400 capitalize">{{ name }}</h3>
         <PokeBookmark :key="name" :name="name"/>
     </div>
 </template>
