@@ -41,10 +41,7 @@ export const usePokeStore = defineStore('pokeStore', () => {
 
     // Set current menu only if it's a valid menu
     function setMenu (newValue) {
-        if (['all', 'bookmarks'].includes(newValue)) {
-            setSearchQuery('')
-            currentMenu.value = newValue
-        }
+        if (['all', 'bookmarks'].includes(newValue)) currentMenu.value = newValue
     }
 
     const setSearchQuery = (query) => {
