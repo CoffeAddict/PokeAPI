@@ -26,7 +26,7 @@ export default {
             value = value.trim()
             searchQuery.value = value
             if (value) pokeStore.searchFriend(value)
-        }, 300)
+        }, 1000)
 
     return { handleInput, pokeStore, searchQuery }
     },
