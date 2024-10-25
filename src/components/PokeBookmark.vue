@@ -1,7 +1,7 @@
 <template>
     <div
         @click="handleBookmark"
-        class="bg-neutral-100 rounded-[50%] pb-[2px] flex items-center justify-center hover:opacity-50 transition-all duration-200 poke-card w-[44px] h-[44px]">
+        class="bg-neutral-100 rounded-[50%] pb-[2px] flex items-center justify-center hover:opacity-50 transition-all duration-200 poke-card min-w-[44px] min-h-[44px]">
         <PokeIcons :icon="'star'" :color="currentColor"/>
     </div>
 </template>
