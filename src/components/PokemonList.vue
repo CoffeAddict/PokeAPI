@@ -42,6 +42,7 @@ export default {
         const pokeStore = usePokeStore()
         const scrollElement = ref(null)
         const scrollPosition = ref(0)
+        const offset = 100
 
         // Add scroll listener on mount
         onMounted(async () => {
@@ -63,7 +64,7 @@ export default {
             const el = scrollElement.value
 
             // Reached bottom
-            if (el.scrollTop + el.clientHeight >= el.scrollHeight) {
+            if (el.scrollTop + el.clientHeight >= el.scrollHeight - offset) {
                 // Save scroll position before loading new data
                 scrollPosition.value = saveScrollPosition()
 
