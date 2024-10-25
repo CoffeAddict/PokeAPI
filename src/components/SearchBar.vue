@@ -23,8 +23,9 @@ export default {
 
         // Wait for 300ms before sending the request
         const handleInput = debounce((value) => {
+            value = value.trim()
             searchQuery.value = value
-            pokeStore.searchFriend(value)
+            if (value) pokeStore.searchFriend(value)
         }, 300)
 
     return { handleInput, pokeStore, searchQuery }
