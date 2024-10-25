@@ -97,13 +97,10 @@ export const usePokeStore = defineStore('pokeStore', () => {
 
     // Load pokemon details from the API
     const loadFriendByName = async (name) => {
-        setLoading(true)
-
         try {
             const result = await getPokemonByName(name)
             setPokemonDetails(result)
             setLoadError(false)
-            setLoading(false)
         } catch (error) {
             console.error('Failed to fetch Pokémon data:', error)
             setLoadError(true)
